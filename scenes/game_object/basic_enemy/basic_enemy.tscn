@@ -23,18 +23,24 @@ script = ExtResource("1_u4x7s")
 [node name="VialDropComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_fht6a")]
 health_component = NodePath("../HealthComponent")
 
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_b0jqm")]
-health_component = NodePath("../HealthComponent")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(0, -5)
-shape = SubResource("CircleShape2D_i8bxm")
-debug_color = Color(0.941176, 0.184314, 0.4, 0.419608)
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_4dp0f")
 offset = Vector2(0, -4)
+metadata/_edit_lock_ = true
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_b0jqm")]
+visible = false
+position = Vector2(0, -4)
+health_component = NodePath("../HealthComponent")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_i8bxm")
+debug_color = Color(0.941176, 0.184314, 0.4, 0.419608)
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_uus2p")
+metadata/_edit_lock_ = true
