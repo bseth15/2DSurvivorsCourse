@@ -40,6 +40,6 @@ metadata/_edit_lock_ = true
 y_sort_enabled = true
 
 [node name="Player" parent="Entities" instance=ExtResource("1_q40pr")]
-position = Vector2(328, 199)
+position = Vector2(318, 343)
 
 [node name="Foreground" type="Node2D" parent="." groups=["foreground_layer"]]
