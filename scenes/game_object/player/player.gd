@@ -7,6 +7,8 @@ const ACCELERATION_SMOOTHING: float = 25.0
 @onready var health_component = $HealthComponent
 @onready var health_bar = $HealthBar
 @onready var abilities = $Abilities
+@onready var animation_player = $AnimationPlayer
+@onready var visuals = $Visuals
 
 var number_colliding_bodies = 0
 
@@ -22,13 +24,19 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	var direction: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	if direction.x < 0:
-		$Sprite2D.flip_h = true
-	if direction.x > 0:
-		$Sprite2D.flip_h = false
 	var target_velocity: Vector2 = direction * MAX_SPEED
 	velocity = velocity.lerp(target_velocity, 1 - exp(-delta * ACCELERATION_SMOOTHING))
 	move_and_slide()
+
+	if direction.x != 0 || direction.y != 0:
+		animation_player.play("walk")
+	else:
+		animation_player.play("RESET")
+
+	var move_sign = sign(direction.x)
+	if move_sign != 0:
+		visuals.scale = Vector2(move_sign, 1)
+
 
 
 func check_deal_damage() -> void:
