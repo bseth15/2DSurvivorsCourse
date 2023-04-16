@@ -41,8 +41,11 @@ size_flags_vertical = 4
 layout_mode = 2
 theme_type_variation = &"BlueOutlineLabel"
 theme_override_font_sizes/font_size = 32
-text = "Thunder-Brome"
+text = "WELCOME 
+to the 
+THUNDER-BROME"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PlayButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_ij4t3")]
 unique_name_in_owner = true
