@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dugai7s0e5o6l"]
+[gd_scene load_steps=5 format=3 uid="uid://dugai7s0e5o6l"]
 
 [ext_resource type="Script" path="res://scenes/ui/options_menu.gd" id="1_hs5lr"]
 [ext_resource type="TileSet" uid="uid://dcfxfmch54sfg" path="res://resources/tileset.tres" id="2_b5o8b"]
+[ext_resource type="PackedScene" uid="uid://c23yrg2m6vcfb" path="res://scenes/ui/vignette.tscn" id="2_ph1ut"]
 [ext_resource type="PackedScene" uid="uid://b37d2b1qbyl40" path="res://scenes/ui/sound_button.tscn" id="3_amojk"]
 
 [node name="OptionsMenu" type="CanvasLayer"]
@@ -40,11 +41,7 @@ theme_override_constants/separation = 24
 
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/OptionsMenuContainer"]
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0.247059, 0.14902, 0.192157, 1)
-theme_override_colors/font_outline_color = Color(0.247059, 0.14902, 0.192157, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/outline_size = 8
+theme_type_variation = &"BlueOutlineLabel"
 theme_override_font_sizes/font_size = 32
 text = "Options"
 horizontal_alignment = 1
@@ -58,11 +55,7 @@ layout_mode = 2
 
 [node name="SfxOptionLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/OptionsMenuContainer/OptionsContainer/SfxOptionContainer"]
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0.247059, 0.14902, 0.192157, 1)
-theme_override_colors/font_outline_color = Color(0.247059, 0.14902, 0.192157, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/outline_size = 6
+theme_type_variation = &"BlueOutlineLabel"
 text = "SFX Volume"
 
 [node name="SfxSlider" type="HSlider" parent="MarginContainer/PanelContainer/MarginContainer/OptionsMenuContainer/OptionsContainer/SfxOptionContainer"]
@@ -70,17 +63,14 @@ unique_name_in_owner = true
 layout_mode = 2
 max_value = 1.0
 step = 0.01
+value = 0.5
 
 [node name="MusicOptionContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/OptionsMenuContainer/OptionsContainer"]
 layout_mode = 2
 
 [node name="MusicOptionLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/OptionsMenuContainer/OptionsContainer/MusicOptionContainer"]
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0.247059, 0.14902, 0.192157, 1)
-theme_override_colors/font_outline_color = Color(0.247059, 0.14902, 0.192157, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/outline_size = 6
+theme_type_variation = &"BlueOutlineLabel"
 text = "Music Volume"
 
 [node name="MusicSlider" type="HSlider" parent="MarginContainer/PanelContainer/MarginContainer/OptionsMenuContainer/OptionsContainer/MusicOptionContainer"]
@@ -88,17 +78,14 @@ unique_name_in_owner = true
 layout_mode = 2
 max_value = 1.0
 step = 0.01
+value = 0.5
 
 [node name="WindowOptionContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/OptionsMenuContainer/OptionsContainer"]
 layout_mode = 2
 
 [node name="WindowOptionLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/OptionsMenuContainer/OptionsContainer/WindowOptionContainer"]
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0.247059, 0.14902, 0.192157, 1)
-theme_override_colors/font_outline_color = Color(0.247059, 0.14902, 0.192157, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/outline_size = 6
+theme_type_variation = &"BlueOutlineLabel"
 text = "Window Mode"
 
 [node name="WindowButton" parent="MarginContainer/PanelContainer/MarginContainer/OptionsMenuContainer/OptionsContainer/WindowOptionContainer" instance=ExtResource("3_amojk")]
@@ -114,3 +101,6 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Back"
+
+[node name="Vignette" parent="." instance=ExtResource("2_ph1ut")]
+layer = 2
