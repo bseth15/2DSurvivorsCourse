@@ -2,14 +2,23 @@ extends CanvasLayer
 
 signal transitioned_halfway
 
-var skip_emit = false
-
 
 func transition():
+	transition_in()
+
+
+func transition_in():
+	$ColorRect.visible = true
 	$AnimationPlayer.play("default")
-	await transitioned_halfway
-	skip_emit = true
+	await $AnimationPlayer.animation_finished
+	transitioned_halfway.emit()
+	transition_out()
+
+
+func transition_out():
 	$AnimationPlayer.play_backwards("default")
+	await $AnimationPlayer.animation_finished
+	$ColorRect.visible = false
 
 
 func transition_to_scene(scene_path: String):
@@ -19,7 +28,4 @@ func transition_to_scene(scene_path: String):
 
 
 func emit_transitioned_halfway():
-	if skip_emit:
-		skip_emit = false
-		return
 	transitioned_halfway.emit()
