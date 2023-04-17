@@ -10,3 +10,5 @@ basic_enemy_scene = ExtResource("2_c678a")
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="SpawnLocations" type="Node" parent="."]
