@@ -1,0 +1,144 @@
+[gd_scene load_steps=22 format=3 uid="uid://bqn55oq1lpw32"]
+
+[ext_resource type="Script" path="res://scenes/game_object/bat_enemy/bat_enemy.gd" id="1_c86mf"]
+[ext_resource type="PackedScene" uid="uid://cf3njyix76t8y" path="res://scenes/component/health_component.tscn" id="2_adpad"]
+[ext_resource type="PackedScene" uid="uid://cscpwao5hfpss" path="res://scenes/component/velocity_component.tscn" id="3_jxh1h"]
+[ext_resource type="PackedScene" uid="uid://crxaquhb1rqtu" path="res://scenes/component/vial_drop_component.tscn" id="4_71tq6"]
+[ext_resource type="PackedScene" uid="uid://dxv3bt113hwwg" path="res://scenes/component/hit_flash_component.tscn" id="5_fnlrt"]
+[ext_resource type="Shader" path="res://scenes/component/hit_flash_component.gdshader" id="6_6cg3l"]
+[ext_resource type="PackedScene" uid="uid://2458k5k53ji8" path="res://scenes/component/death_component.tscn" id="7_qdxoe"]
+[ext_resource type="PackedScene" uid="uid://cogi7gmku5dxr" path="res://scenes/component/random_stream_player_2d_component.tscn" id="8_cipnu"]
+[ext_resource type="AudioStream" uid="uid://cfo4q2m6u107y" path="res://assets/audio/footstep_carpet_000.ogg" id="9_vetdc"]
+[ext_resource type="AudioStream" uid="uid://3707adpdty3x" path="res://assets/audio/footstep_carpet_001.ogg" id="10_0o84g"]
+[ext_resource type="AudioStream" uid="uid://ucy8j4ooa06o" path="res://assets/audio/footstep_carpet_002.ogg" id="11_qydp8"]
+[ext_resource type="AudioStream" uid="uid://bmvorkk4wy0tn" path="res://assets/audio/footstep_carpet_003.ogg" id="12_c1vgv"]
+[ext_resource type="AudioStream" uid="uid://di1yno6y87ach" path="res://assets/audio/footstep_carpet_004.ogg" id="13_a2va3"]
+[ext_resource type="Texture2D" uid="uid://bdlkj6x3iw6xp" path="res://scenes/game_object/bat_enemy/bat.png" id="14_nyww4"]
+[ext_resource type="PackedScene" uid="uid://dmtjg72lmbch7" path="res://scenes/component/hurtbox_component.tscn" id="15_bbwpb"]
+
+[sub_resource type="Animation" id="Animation_s18l5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -7)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_43u4e"]
+resource_name = "walk"
+length = 0.4
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2.54912, 1),
+"update": 0,
+"values": [Vector2(0, -7), Vector2(0, -11)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.174533, 0.0, -0.174533]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dnfws"]
+_data = {
+"RESET": SubResource("Animation_s18l5"),
+"walk": SubResource("Animation_43u4e")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3twba"]
+resource_local_to_scene = true
+shader = ExtResource("6_6cg3l")
+shader_parameter/lerp_percent = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_83ijq"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_37was"]
+radius = 4.0
+
+[node name="BatEnemy" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 8
+collision_mask = 9
+script = ExtResource("1_c86mf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "walk"
+libraries = {
+"": SubResource("AnimationLibrary_dnfws")
+}
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_adpad")]
+max_health = 30.0
+
+[node name="VelocityComponent" parent="." instance=ExtResource("3_jxh1h")]
+max_speed = 110
+acceleration = 0.75
+
+[node name="VialDropComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_71tq6")]
+drop_percent = 0.4
+health_component = NodePath("../HealthComponent")
+
+[node name="HitFlashComponent" parent="." node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("5_fnlrt")]
+health_component = NodePath("../HealthComponent")
+sprite = NodePath("../Visuals/Sprite2D")
+hit_flash_material = SubResource("ShaderMaterial_3twba")
+
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("7_qdxoe")]
+health_component = NodePath("../HealthComponent")
+sprite = NodePath("../Visuals/Sprite2D")
+
+[node name="HitPlayerRandomAudioComponent" parent="." instance=ExtResource("8_cipnu")]
+streams = Array[AudioStream]([ExtResource("9_vetdc"), ExtResource("10_0o84g"), ExtResource("11_qydp8"), ExtResource("12_c1vgv"), ExtResource("13_a2va3")])
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(0, -7)
+texture = ExtResource("14_nyww4")
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("15_bbwpb")]
+position = Vector2(0, -7)
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_83ijq")
+debug_color = Color(0.87451, 0.14902, 0.262745, 0.419608)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_37was")

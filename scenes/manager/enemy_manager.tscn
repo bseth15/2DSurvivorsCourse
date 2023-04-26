@@ -1,14 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7rn7lmsp2q5t"]
+[gd_scene load_steps=7 format=3 uid="uid://c7rn7lmsp2q5t"]
 
 [ext_resource type="Script" path="res://scenes/manager/enemy_manager.gd" id="1_sefkv"]
 [ext_resource type="PackedScene" uid="uid://bma085afj5rlm" path="res://scenes/game_object/wizard_enemy/wizard_enemy.tscn" id="2_c678a"]
+[ext_resource type="PackedScene" uid="uid://duayp3hbadurw" path="res://scenes/game_object/basic_enemy/basic_enemy.tscn" id="2_meqia"]
+[ext_resource type="PackedScene" uid="uid://bqn55oq1lpw32" path="res://scenes/game_object/bat_enemy/bat_enemy.tscn" id="4_6duc5"]
+[ext_resource type="PackedScene" uid="uid://bn13pfwpu7kb0" path="res://scenes/game_object/ghost_enemy/ghost_enemy.tscn" id="5_ilan4"]
+[ext_resource type="PackedScene" uid="uid://bjjne0pp78xnm" path="res://scenes/game_object/cyclops_enemy/cyclops_enemy.tscn" id="6_vhtty"]
 
 [node name="EnemyManager" type="Node"]
 script = ExtResource("1_sefkv")
-basic_enemy_scene = ExtResource("2_c678a")
+basic_enemy_scene = ExtResource("2_meqia")
+wizard_enemy_scene = ExtResource("2_c678a")
+bat_enemy_scene = ExtResource("4_6duc5")
+ghost_enemy_scene = ExtResource("5_ilan4")
+cyclops_enemy_scene = ExtResource("6_vhtty")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
-
-[node name="SpawnLocations" type="Node" parent="."]

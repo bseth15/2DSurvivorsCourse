@@ -6,6 +6,9 @@ signal back_pressed
 @onready var sfx_slider: HSlider = %SfxSlider
 @onready var music_slider: HSlider = %MusicSlider
 @onready var back_button: Button = %BackButton
+@onready var delete_save_button: Button = %DeleteSaveButton
+
+var confirmation_diaglog_scene = preload("res://scenes/ui/confirmation_diaglog.tscn")
 
 
 func _ready() -> void:
@@ -13,6 +16,7 @@ func _ready() -> void:
 	sfx_slider.value_changed.connect(on_audio_slider_changed.bind("sfx"))
 	music_slider.value_changed.connect(on_audio_slider_changed.bind("music"))
 	back_button.pressed.connect(on_back_button_pressed)
+	delete_save_button.pressed.connect(on_delete_save_button_pressed)
 	update_display()
 
 
@@ -54,3 +58,13 @@ func on_back_button_pressed():
 	ScreenTransition.transition()
 	await ScreenTransition.transitioned_halfway
 	back_pressed.emit()
+
+
+func on_delete_save_button_pressed():
+	var confirmation_diaglog_instance = confirmation_diaglog_scene.instantiate()
+	add_child(confirmation_diaglog_instance)
+	confirmation_diaglog_instance.confirm_pressed.connect(on_confirm_pressed)
+
+
+func on_confirm_pressed():
+	MetaProgression.delete_save_file()

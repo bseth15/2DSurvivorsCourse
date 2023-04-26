@@ -2,6 +2,11 @@ extends Node
 
 const SAVE_FILE_PATH = "user://game.sav"
 
+const NEW_SAVE: Dictionary = {
+	"meta_upgrade_currency": 0,
+	"meta_upgrades": {}
+}
+
 var save_data: Dictionary = {
 	"meta_upgrade_currency": 0,
 	"meta_upgrades": {}
@@ -18,6 +23,12 @@ func load_save_file():
 		return
 	var file = FileAccess.open(SAVE_FILE_PATH, FileAccess.READ)
 	save_data = file.get_var()
+
+
+func delete_save_file():
+	save_data = NEW_SAVE
+	save()
+	load_save_file()
 
 
 func save():
